@@ -6,6 +6,7 @@ from pandas import DataFrame
 import itertools
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 
@@ -27,7 +28,7 @@ x_train,x_test,y_train,y_test = train_test_split(text,labels, test_size=0.30, ra
 print(x_train)
 
 #initializing count_vectorizer
-count_vectorizer = TfidfVectorizer(stop_words = 'english', max_df = 0.7)
+count_vectorizer = CountVectorizer(stop_words = 'english', max_df = 0.7)
 
 #fitting the model using count
 count_train =  count_vectorizer.fit_transform(x_train)
