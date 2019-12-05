@@ -43,24 +43,25 @@ rf_predict = rf_pipeline.predict(DataPreparation.test_file["Statement"])
 np.mean(rf_predict == DataPreparation.test_file['Label'])
 '''
 def analyse_confusion_matrix(classifier):
-    kf = KFold(n_splits = 10, shuffle=False) 
+    kf = KFold(n_splits = 5) 
     scores = []
     confusion_mat = np.array([[0,0], [0,0]])
 
     for train_index, test_index in kf.split(DataPreparation.train_file):
-        train_X = DataPreparation.train_file.iloc[train_index]['Statement']
-        train_y = DataPreparation.train_file.iloc[train_index]['Label']
+        train_X = DataPreparation.train_file.loc[train_index]['Statement']
+        train_y = DataPreparation.train_file.loc[train_index]['Label']
 
-        test_X = DataPreparation.test_file.iloc[test_index]['Statement']
-        test_y = DataPreparation.test_file.iloc[test_index]['Label']
-        print(test_y.shape)
+        test_X = DataPreparation.test_file.loc[test_index]['Statement']
+        test_y = DataPreparation.test_file.loc[test_index]['Label']
+        #print('shape of test y: ',test_y.shape)
         
-        classifier.fit(train_X, train_y)
+        classifier.fit(train_X.values, train_y)
         pred = classifier.predict(test_X)
         print("prediction values is" , pred)
-        print(pred.shape)
-        confusion_mat += confusion_matrix(test_y,pred)
-        fscore = f1_score(test_y,pred)
+        print('shape of pred: ',pred.shape)
+        cm = confusion_matrix(test_y,pred)
+        confusion_mat += cm
+        fscore = f1_score(test_y,pred, average='weighted')
         scores.append(fscore)
     
     print("Score is:" , sum(scores)/len(scores))

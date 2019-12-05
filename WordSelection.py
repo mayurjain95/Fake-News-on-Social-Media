@@ -47,7 +47,7 @@ def countvect_stats():
 #count_test = count_vectorizer.transform() 
 
 #initializing tfidf_vectorizer 
-tfidf_vectorizer = TfidfVectorizer(stop_words = 'english', max_df = 0.7)
+tfidf_vectorizer = TfidfVectorizer(stop_words = 'english', max_df = 0.7, encoding='utf-8')
 
 #fitting the model using Tfidf
 tfidf_train =  tfidf_vectorizer.fit_transform(DataPreparation.test_file['Statement'].values)
