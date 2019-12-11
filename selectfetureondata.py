@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 10 15:09:33 2019
-
-@author: mayan
+This section of the code perform the Count Vectorization and TF-IDF on the extracted data from preperationdata file also implement stop words
+@author: mayank,mayur,ayush
 """
 
 import preperationdata
@@ -13,14 +12,8 @@ from sklearn.feature_extraction.text import TfidfTransformer
 countV = CountVectorizer()
 dummyCV_traincount = countV.fit_transform(preperationdata.global_train_news['Statement'].values)
 def print_countV_result():
-    
-    #vocab size
     dummyCV_traincount.shape
-
-    #check vocabulary using below command
     print(countV.vocabulary_)
-
-    #get feature names
     print(countV.get_feature_names()[:25])
 
 tfidfV = TfidfTransformer()
@@ -28,8 +21,7 @@ dummy_traintfidf = tfidfV.fit_transform(dummyCV_traincount)
 tfidf_trsn = TfidfVectorizer(stop_words='english',use_idf=True,smooth_idf=True)
 
 def print_tfidf_result():
-    dummy_traintfidf.shape
-    #get train data feature names 
+    dummy_traintfidf.shape 
     print(dummy_traintfidf.A[:100])
 
 

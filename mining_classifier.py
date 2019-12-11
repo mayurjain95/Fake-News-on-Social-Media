@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 10 15:29:29 2019
-
-@author: mayan
+This the main classifier file and only needed file to be called to run entire code.
+Here various classifier is applied on CountVectoriser and TF-IDF data to obtaine the best result.
+@author: mayank,mayur,ayush
 """
 
 import preperationdata
@@ -16,6 +16,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import  LogisticRegression
 
+#implementation for the count vectorizer
 naive_bayes_val = Pipeline([
         ('NB',selectfetureondata.countV),
         ('multiNB_clf',MultinomialNB())])
@@ -36,7 +37,7 @@ np.mean(LogisticReg_result == preperationdata.global_test_news['Label'])
 
 supportvector_machine_val = Pipeline([
         ('svm',selectfetureondata.countV),
-        ('svm_clf',svm.SVC(kernel='linear', C = 1.0))
+        ('svm_clf',svm.SVC(kernel='rbf', C = 1.0))
         ])
 
 supportvector_machine_val.fit(preperationdata.global_train_news['Statement'],preperationdata.global_train_news['Label'])
@@ -73,7 +74,7 @@ np.mean(logisticregression_result1 == preperationdata.global_test_news['Label'])
 
 supportvector_machine_val1 = Pipeline([
         ('svm-tfidf',selectfetureondata.tfidf_trsn),
-        ('svm',svm.SVC(kernel='linear', C = 1.0))
+        ('svm',svm.SVC(kernel='rbf', C = 1.0))
         ])
 
 supportvector_machine_val1.fit(preperationdata.global_train_news['Statement'],preperationdata.global_train_news['Label'])
@@ -141,6 +142,7 @@ create_confusionmatrix(randomforest_val1)
 '''
 
 '''
+#obtaining final classification report
 print("Classification report Naive Bayes");
 print(classification_report(preperationdata.global_test_news['Label'], naive_bayes_resutl))
 print("Classification report Logistic regression");
@@ -149,6 +151,8 @@ print("Classification report Support Vector Machine");
 print(classification_report(preperationdata.global_test_news['Label'], supportvectionmachine_result1))
 print("Classification report Random Forest");
 print(classification_report(preperationdata.global_test_news['Label'], randomforest_result1))
+
+print("**********************************************end*******************************************************)
 
 
 
