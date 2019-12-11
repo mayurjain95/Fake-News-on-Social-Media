@@ -152,7 +152,7 @@ print(classification_report(preperationdata.global_test_news['Label'], supportve
 print("Classification report Random Forest");
 print(classification_report(preperationdata.global_test_news['Label'], randomforest_result1))
 
-print("**********************************************end*******************************************************)
+print("**********************************************end*******************************************************")
 
 
 
